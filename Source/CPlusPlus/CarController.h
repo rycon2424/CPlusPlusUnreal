@@ -28,10 +28,15 @@ public:
 
 private:
 
-	UPROPERTY(VisibleDefaultsOnly, Category = "CarController")
+	class UStaticMeshComponent* rootMesh;
+
+	UPROPERTY(VisibleAnywhere, Category = "CarController")
 	class UStaticMeshComponent* mesh;
 
-	UPROPERTY(EditAnywhere, Category = "CarController")
+	UPROPERTY(VisibleAnywhere, Category = "CarController")
+	class UCameraComponent* followCamera;
+
+	UPROPERTY(VisibleAnywhere, Category = "CarController")
 	FVector movingDirection;
 
 	UPROPERTY(EditAnywhere, Category = "CarController")

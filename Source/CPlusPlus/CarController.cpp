@@ -3,6 +3,7 @@
 
 #include "CarController.h"
 #include "Components/StaticMeshComponent.h"
+#include "Camera/CameraComponent.h"
 
 // Sets default values
 ACarController::ACarController()
@@ -10,8 +11,12 @@ ACarController::ACarController()
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	rootMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("RootMesh"));
+	SetRootComponent(rootMesh);
+
+	followCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
+
 	mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
-	SetRootComponent(mesh);
 
 	movingDirection = FVector(0.f);
 }
@@ -27,7 +32,7 @@ void ACarController::BeginPlay()
 void ACarController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	AddActorLocalOffset(movingDirection * speedMultiplyer * DeltaTime);
+	mesh->AddLocalOffset(movingDirection * speedMultiplyer * DeltaTime);
 }
 
 // Called to bind functionality to input
