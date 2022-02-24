@@ -18,21 +18,31 @@ ACarController::ACarController()
 
 	mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 
-	movingDirection = FVector(0.f);
+	acceleration = FVector(0.f);
 }
 
 // Called when the game starts or when spawned
 void ACarController::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 }
 
 // Called every frame
 void ACarController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	mesh->AddLocalOffset(movingDirection * speedMultiplyer * DeltaTime);
+
+	acceleration += friction * velocity; // Friction
+
+	velocity += DeltaTime * acceleration * velocityspeed; // Set velocity
+
+	//UE_LOG(LogTemp, Warning, TEXT("Velocity = %s"), *velocity.ToString()); // Debug
+	//UE_LOG(LogTemp, Warning, TEXT("Acceleration = %s"), *acceleration.ToString()); // Debug
+
+	acceleration = FVector(0);
+
+	mesh->AddWorldOffset(velocity);
 }
 
 // Called to bind functionality to input
@@ -45,10 +55,10 @@ void ACarController::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 
 void ACarController::HorizontalInput(float axisX)
 {
-	movingDirection += FVector(0, axisX, 0);
+	acceleration.Y = axisX;
 }
 
 void ACarController::VerticalInput(float axisY)
 {
-	movingDirection += FVector(axisY, 0, 0);
+	acceleration.X = axisY;
 }

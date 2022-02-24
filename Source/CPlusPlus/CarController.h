@@ -4,10 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
+#include "MovingObject.h"
 #include "CarController.generated.h"
 
 UCLASS()
-class CPLUSPLUS_API ACarController : public APawn
+class CPLUSPLUS_API ACarController : public AMovingObject
 {
 	GENERATED_BODY()
 
@@ -37,10 +38,7 @@ private:
 	class UCameraComponent* followCamera;
 
 	UPROPERTY(VisibleAnywhere, Category = "CarController")
-	FVector movingDirection;
-
-	UPROPERTY(EditAnywhere, Category = "CarController")
-	float speedMultiplyer = 3.f;
+	FVector acceleration;
 
 private:
 
