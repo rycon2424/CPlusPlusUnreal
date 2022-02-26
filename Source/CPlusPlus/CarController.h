@@ -29,6 +29,7 @@ public:
 
 private:
 
+	UPROPERTY(VisibleAnywhere, Category = "CarController")
 	class UStaticMeshComponent* rootMesh;
 
 	UPROPERTY(VisibleAnywhere, Category = "CarController")
@@ -39,6 +40,12 @@ private:
 
 	UPROPERTY(VisibleAnywhere, Category = "CarController")
 	FVector acceleration;
+
+	UPROPERTY(EditAnywhere, Category = "CarController")
+	float XMultiplyer = 1;
+
+	UPROPERTY(EditAnywhere, Category = "CarController")
+	float YMultiplyer = 1;
 
 private:
 

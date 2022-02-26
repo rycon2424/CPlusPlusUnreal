@@ -55,10 +55,10 @@ void ACarController::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 
 void ACarController::HorizontalInput(float axisX)
 {
-	acceleration.Y = axisX;
+	acceleration.Y = axisX * XMultiplyer;
 }
 
 void ACarController::VerticalInput(float axisY)
 {
-	acceleration.X = axisY;
+	acceleration.X = axisY * YMultiplyer;
 }
