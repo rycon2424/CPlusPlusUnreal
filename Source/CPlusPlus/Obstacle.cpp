@@ -10,6 +10,7 @@ AObstacle::AObstacle()
 	PrimaryActorTick.bCanEverTick = true;
 
 	mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MovingMesh"));
+	SetRootComponent(mesh);
 }
 
 // Called when the game starts or when spawned
