@@ -3,6 +3,7 @@
 
 #include "CarController.h"
 #include "Components/StaticMeshComponent.h"
+#include "Obstacle.h"
 #include "Camera/CameraComponent.h"
 
 // Sets default values
@@ -19,13 +20,16 @@ ACarController::ACarController()
 	mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 
 	acceleration = FVector(0.f);
+
+	AutoPossessPlayer = EAutoReceiveInput::Player0;
+
 }
 
 // Called when the game starts or when spawned
 void ACarController::BeginPlay()
 {
 	Super::BeginPlay();
-
+	mesh->OnComponentHit.AddDynamic(this, &ACarController::OnComponentHit);
 }
 
 // Called every frame
@@ -51,6 +55,14 @@ void ACarController::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 	PlayerInputComponent->BindAxis("Vertical", this, &ACarController::VerticalInput);
 	PlayerInputComponent->BindAxis("Horizontal", this, &ACarController::HorizontalInput);
+}
+
+void ACarController::OnComponentHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& hit)
+{
+	if (OtherActor->GetClass()->IsChildOf(AObstacle::StaticClass()))
+	{
+		OtherActor->Destroy();
+	}
 }
 
 void ACarController::HorizontalInput(float axisX)

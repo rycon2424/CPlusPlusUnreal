@@ -19,10 +19,17 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Obstacle")
 	float obstacleSpeed = -1;
 
+	UPROPERTY(EditAnywhere, Category = "Obstacle")
+	float strafingSpeed = 1;
+
+	UPROPERTY(EditAnywhere, Category = "Obstacle")
+	bool goingLeft;
+
 	FVector acceleration;
 
 	UPROPERTY(EditAnywhere, Category = "Obstacle")
 	UStaticMeshComponent* mesh;
+
 
 protected:
 	// Called when the game starts or when spawned
