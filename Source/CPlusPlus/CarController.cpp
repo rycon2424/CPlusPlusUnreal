@@ -35,6 +35,11 @@ void ACarController::BeginPlay()
 // Called every frame
 void ACarController::Tick(float DeltaTime)
 {
+	if (gameOver)
+	{
+		mesh->AddWorldOffset(velocity);
+		return;
+	}
 	Super::Tick(DeltaTime);
 
 	acceleration += friction * velocity; // Friction
@@ -43,7 +48,13 @@ void ACarController::Tick(float DeltaTime)
 
 	//UE_LOG(LogTemp, Warning, TEXT("Velocity = %s"), *velocity.ToString()); // Debug
 	//UE_LOG(LogTemp, Warning, TEXT("Acceleration = %s"), *acceleration.ToString()); // Debug
+	//UE_LOG(LogTemp, Warning, TEXT("time = %f"), GetWorld()->GetTimeSeconds());
 
+	if (GetWorld()->GetTimeSeconds() > timerTime)
+	{
+		timerTime += 5;
+		score += 50;
+	}
 	acceleration = FVector(0);
 
 	mesh->AddWorldOffset(velocity);
@@ -59,10 +70,29 @@ void ACarController::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 
 void ACarController::OnComponentHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& hit)
 {
+	if (gameOver)
+	{
+		return;
+	}
 	if (OtherActor->GetClass()->IsChildOf(AObstacle::StaticClass()))
 	{
 		OtherActor->Destroy();
 	}
+	lives--;
+	if (lives < 1)
+	{
+		GameOver();
+	}
+}
+
+void ACarController::GameOver()
+{
+	gameOverText = "Game Over";
+	scoreText = "FinalScore:";
+	endScore = FString::FromInt(score);
+	acceleration = FVector(0);
+	velocity = FVector(0);
+	gameOver = true;
 }
 
 void ACarController::HorizontalInput(float axisX)

@@ -16,6 +16,24 @@ public:
 	// Sets default values for this pawn's properties
 	ACarController();
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "HUD")
+	bool gameOver;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "HUD")
+	int lives = 3;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "HUD")
+	int score = 0;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "HUD")
+	FString gameOverText = "";
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "HUD")
+	FString scoreText = "";
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "HUD")
+	FString endScore = "";
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -50,10 +68,14 @@ private:
 	UPROPERTY(EditAnywhere, Category = "CarController")
 	float YMultiplyer = 1;
 
+	float timerTime = 5;
+
 private:
 
 	void HorizontalInput(float axisX);
 
 	void VerticalInput(float axisY);
+
+	void GameOver();
 
 };
