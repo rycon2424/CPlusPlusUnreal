@@ -77,11 +77,11 @@ void ACarController::OnComponentHit(UPrimitiveComponent* HitComponent, AActor* O
 	if (OtherActor->GetClass()->IsChildOf(AObstacle::StaticClass()))
 	{
 		OtherActor->Destroy();
-	}
-	lives--;
-	if (lives < 1)
-	{
-		GameOver();
+		lives--;
+		if (lives < 1)
+		{
+			GameOver();
+		}
 	}
 }
 
