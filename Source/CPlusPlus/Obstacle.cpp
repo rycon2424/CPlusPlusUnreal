@@ -26,7 +26,8 @@ void AObstacle::BeginPlay()
 	{
 		goingLeft = true;
 	}
-	velocityspeed = FMath::RandRange(3, 8);
+	velocityspeed = FMath::RandRange(3, 16);
+	fallDownSpeed = FMath::RandRange(1, 10);
 }
 
 // Called every frame
@@ -60,6 +61,7 @@ void AObstacle::Tick(float DeltaTime)
 	acceleration = FVector(0);
 
 	mesh->AddLocalOffset(velocity);
+	mesh->AddLocalOffset(FVector(-fallDownSpeed, 0, 0));
 
 	if (GetActorLocation().X <= -400)
 	{

@@ -25,6 +25,9 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Obstacle")
 	bool goingLeft;
 
+	UPROPERTY(EditAnywhere, Category = "Obstacle")
+	float fallDownSpeed = 1;
+
 	FVector acceleration;
 
 	UPROPERTY(EditAnywhere, Category = "Obstacle")
