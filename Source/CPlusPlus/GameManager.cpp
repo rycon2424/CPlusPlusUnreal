@@ -29,7 +29,9 @@ void AGameManager::Tick(float DeltaTime)
 void AGameManager::SpawnRandomCars()
 {
 	FVector location = spawnPositions[FMath::RandRange(0, spawnPositions.Num() - 1)];
+	int carNumber = FMath::RandRange(0, spawnActor.Num() - 1);
+	//UE_LOG(LogTemp, Warning, TEXT("Spawnable  = %d"), spawnActor.Num());
 	FRotator rotation = FRotator(0);
-	GetWorld()->SpawnActor<AActor>(spawnActor[0], location, rotation);
+	GetWorld()->SpawnActor<AActor>(spawnActor[carNumber], location, rotation);
 }
 
