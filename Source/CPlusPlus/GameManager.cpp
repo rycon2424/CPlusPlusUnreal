@@ -16,7 +16,6 @@ void AGameManager::BeginPlay()
 {
 	Super::BeginPlay();
 	GetWorldTimerManager().SetTimer(spawnTimer, this, &AGameManager::SpawnRandomCars, spawnFrequency, true, timeBeforeSpawning);
-	//GetWorldTimerManager().ClearTimer(spawnTimer);
 }
 
 // Called every frame

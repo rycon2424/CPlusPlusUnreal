@@ -46,10 +46,6 @@ void ACarController::Tick(float DeltaTime)
 
 	velocity += DeltaTime * acceleration * velocityspeed; // Set velocity
 
-	//UE_LOG(LogTemp, Warning, TEXT("Velocity = %s"), *velocity.ToString()); // Debug
-	//UE_LOG(LogTemp, Warning, TEXT("Acceleration = %s"), *acceleration.ToString()); // Debug
-	//UE_LOG(LogTemp, Warning, TEXT("time = %f"), GetWorld()->GetTimeSeconds());
-
 	if (GetWorld()->GetTimeSeconds() > timerTime)
 	{
 		timerTime += 5;
